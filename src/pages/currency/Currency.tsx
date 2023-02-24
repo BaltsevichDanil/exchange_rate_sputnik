@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react'
 import {FC} from 'react'
 
+import NavButton from '../../components/navButton/NavButton'
 import PageWrapper from '../../components/pageWrapper/PageWrapper'
 
 const Currency: FC = () => {
@@ -47,6 +48,7 @@ const Currency: FC = () => {
           </Tbody>
         </Table>
       </TableContainer>
+      <NavButton link='/' text='Обменник' dir='prev' />
     </PageWrapper>
   )
 }

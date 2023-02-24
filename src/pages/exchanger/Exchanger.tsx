@@ -5,13 +5,14 @@ import {
   HStack,
   IconButton,
   Input,
-  Text,
+  Text
 } from '@chakra-ui/react'
 import {animate, motion, useMotionValue, useTransform} from 'framer-motion'
 import {FC, FormEvent, useEffect, useRef, useState} from 'react'
 
 import ChakraBox from '../../components/chackraBox/ChackraBox'
 import Form from '../../components/form/Form'
+import NavButton from '../../components/navButton/NavButton'
 import PageWrapper from '../../components/pageWrapper/PageWrapper'
 
 const Exchanger: FC = () => {
@@ -129,6 +130,7 @@ const Exchanger: FC = () => {
           </ChakraBox>
         </ChakraBox>
       </ChakraBox>
+      <NavButton link='/currency' text='Курсы валют' dir='next' />
     </PageWrapper>
   )
 }
