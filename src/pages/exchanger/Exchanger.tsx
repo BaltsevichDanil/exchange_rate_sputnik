@@ -1,19 +1,18 @@
 import {ArrowForwardIcon} from '@chakra-ui/icons'
 import {
-  Center,
   FormControl,
   FormLabel,
   HStack,
   IconButton,
   Input,
   Text,
-  VStack
 } from '@chakra-ui/react'
 import {animate, motion, useMotionValue, useTransform} from 'framer-motion'
 import {FC, FormEvent, useEffect, useRef, useState} from 'react'
 
 import ChakraBox from '../../components/chackraBox/ChackraBox'
 import Form from '../../components/form/Form'
+import PageWrapper from '../../components/pageWrapper/PageWrapper'
 
 const Exchanger: FC = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -78,61 +77,59 @@ const Exchanger: FC = () => {
   }
 
   return (
-    <Center h='100vh'>
-      <VStack spacing={4} w='container.sm'>
-        <Form onSubmit={onSubmit}>
-          <FormControl>
-            <FormLabel>Обменник:</FormLabel>
-            <HStack spacing={2}>
-              <Input placeholder='15 rub in usd' variant='filled' />
-              <IconButton
-                aria-label='Exchange'
-                icon={<ArrowForwardIcon />}
-                type='submit'
-                colorScheme='teal'
-              />
-            </HStack>
-          </FormControl>
-        </Form>
+    <PageWrapper>
+      <Form onSubmit={onSubmit}>
+        <FormControl>
+          <FormLabel>Обменник:</FormLabel>
+          <HStack spacing={2}>
+            <Input placeholder='15 rub in usd' variant='filled' />
+            <IconButton
+              aria-label='Exchange'
+              icon={<ArrowForwardIcon />}
+              type='submit'
+              colorScheme='teal'
+            />
+          </HStack>
+        </FormControl>
+      </Form>
+      <ChakraBox
+        w='full'
+        animate={isOpen ? 'open' : 'closed'}
+        variants={variants}
+      >
         <ChakraBox
           w='full'
-          animate={isOpen ? 'open' : 'closed'}
-          variants={variants}
+          transform-style='preserve-3d'
+          as={motion.div}
+          style={{rotateX, rotateY}}
         >
           <ChakraBox
             w='full'
-            transform-style='preserve-3d'
             as={motion.div}
-            style={{rotateX, rotateY}}
+            backdrop-filter='blur(5px)'
+            ref={cardRef}
           >
-            <ChakraBox
+            <HStack
               w='full'
-              as={motion.div}
-              backdrop-filter='blur(5px)'
-              ref={cardRef}
+              padding='10'
+              borderRadius='10'
+              bgGradient='linear(to-r, #c31432, #240b36)'
+              justifyContent='space-between'
+              color='white'
+              transform-style='preserve-3d'
             >
-              <HStack
-                w='full'
-                padding='10'
-                borderRadius='10'
-                bgGradient='linear(to-r, #c31432, #240b36)'
-                justifyContent='space-between'
-                color='white'
-                transform-style='preserve-3d'
-              >
-                <Text fontWeight='bold' fontSize='4xl'>
-                  15 руб.
-                </Text>
-                <ArrowForwardIcon fontSize='4xl' />
-                <Text fontWeight='bold' fontSize='4xl'>
-                  0.4 дол.
-                </Text>
-              </HStack>
-            </ChakraBox>
+              <Text fontWeight='bold' fontSize='4xl'>
+                15 руб.
+              </Text>
+              <ArrowForwardIcon fontSize='4xl' />
+              <Text fontWeight='bold' fontSize='4xl'>
+                0.4 дол.
+              </Text>
+            </HStack>
           </ChakraBox>
         </ChakraBox>
-      </VStack>
-    </Center>
+      </ChakraBox>
+    </PageWrapper>
   )
 }
 
