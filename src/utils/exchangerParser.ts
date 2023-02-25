@@ -1,12 +1,12 @@
 import rates from '../constants/rates'
 
-interface IResult {
+export interface IExchangeParserResult {
   amount: number
   from: string
   to: string
 }
 
-const exchangerParser = (data: string): IResult => {
+const exchangerParser = (data: string): IExchangeParserResult => {
   const regex = new RegExp(/([0-9]*[.])?[0-9]+ [a-zA-Z]{3} in [a-zA-Z]{3}/g)
   if (regex.test(data)) {
     // eslint-disable-next-line no-unused-vars
