@@ -16,7 +16,9 @@ describe('Test exchanger parser', () => {
       expect(true).toBe(false)
     } catch (e) {
       const error = e as Error
-      expect(error.message).toBe('Parsing error')
+      expect(error.message).toBe(
+        'Некоректное значение! Введите в формате: 15 rub in usd'
+      )
     }
   })
 
@@ -36,7 +38,7 @@ describe('Test exchanger parser', () => {
       expect(true).toBe(false)
     } catch (e) {
       const error = e as Error
-      expect(error.message).toBe("From rates can't be equal to rates")
+      expect(error.message).toBe('Валюты обмена не могут быть одинаковыми')
     }
   })
 
@@ -46,7 +48,7 @@ describe('Test exchanger parser', () => {
       expect(true).toBe(false)
     } catch (e) {
       const error = e as Error
-      expect(error.message).toBe('From rates is incorrect')
+      expect(error.message).toBe('Не найдена базовая валюта')
     }
   })
 
@@ -56,7 +58,7 @@ describe('Test exchanger parser', () => {
       expect(true).toBe(false)
     } catch (e) {
       const error = e as Error
-      expect(error.message).toBe('To rates is incorrect')
+      expect(error.message).toBe('Не найдена валюта для обмена')
     }
   })
 })
