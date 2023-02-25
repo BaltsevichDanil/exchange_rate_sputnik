@@ -15,11 +15,12 @@ import ExchangeResult, {
 import Form from '../../components/form/Form'
 import NavButton from '../../components/navButton/NavButton'
 import PageWrapper from '../../components/pageWrapper/PageWrapper'
+import RatesService from '../../http/ratesService'
 import exchangerParser from '../../utils/exchangerParser'
 
 const Exchanger: FC = () => {
   const [isOpen, setIsOpen] = useState<'open' | 'closed'>('closed')
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   const [exchangeQuery, setExchangeQuery] = useState<string>('')
   const [exchangeError, setExchangeError] = useState<string>('')
   const [exchangeInfo, setExchangeInfo] = useState<IExchangeInfo>({
@@ -35,19 +36,21 @@ const Exchanger: FC = () => {
     setLoading(true)
     try {
       const parsedData = exchangerParser(exchangeQuery)
-      setExchangeInfo({
-        from: parsedData.from,
-        to: parsedData.to,
-        toAmount: parsedData.amount,
-        fromAmount: parsedData.amount
-      })
-      if (isOpen === 'closed') {
-        setIsOpen('open')
-      }
+      RatesService.exchangeRates(parsedData)
+        .then(result => {
+          setExchangeInfo(result)
+          if (isOpen === 'closed') {
+            setIsOpen('open')
+          }
+        })
+        .catch(err => {
+          setIsOpen('closed')
+          setExchangeError(err.message)
+        })
     } catch (err) {
+      setIsOpen('closed')
       const error = err as Error
       setExchangeError(error.message)
-      setIsOpen('closed')
     }
     setLoading(false)
   }
@@ -72,6 +75,7 @@ const Exchanger: FC = () => {
               icon={<ArrowForwardIcon />}
               type='submit'
               colorScheme='teal'
+              isLoading={loading}
             />
           </HStack>
           <Text color='red.400' fontSize='sm'>
@@ -79,11 +83,7 @@ const Exchanger: FC = () => {
           </Text>
         </FormControl>
       </Form>
-      <ExchangeResult
-        isOpen={isOpen}
-        exchangeInfo={exchangeInfo}
-        loading={loading}
-      />
+      <ExchangeResult isOpen={isOpen} exchangeInfo={exchangeInfo} />
       <NavButton link='/currency' text='Курсы валют' dir='next' />
     </PageWrapper>
   )

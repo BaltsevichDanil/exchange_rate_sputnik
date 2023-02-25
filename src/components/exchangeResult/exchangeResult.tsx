@@ -1,5 +1,5 @@
 import {ArrowForwardIcon} from '@chakra-ui/icons'
-import {Center, HStack, Spinner, Text} from '@chakra-ui/react'
+import {HStack, Text} from '@chakra-ui/react'
 import {animate, motion, useMotionValue, useTransform} from 'framer-motion'
 import {FC, useEffect, useRef} from 'react'
 
@@ -7,7 +7,6 @@ import ChakraBox from '../chackraBox/ChackraBox'
 
 interface IProps {
   isOpen: 'open' | 'closed'
-  loading: boolean
   exchangeInfo: IExchangeInfo
 }
 
@@ -18,7 +17,7 @@ export interface IExchangeInfo {
   toAmount: number
 }
 
-const ExchangeResult: FC<IProps> = ({isOpen, exchangeInfo, loading}) => {
+const ExchangeResult: FC<IProps> = ({isOpen, exchangeInfo}) => {
   const cardRef = useRef<HTMLDivElement>(null)
 
   const divider = 2
@@ -95,21 +94,13 @@ const ExchangeResult: FC<IProps> = ({isOpen, exchangeInfo, loading}) => {
             color='white'
             transform-style='preserve-3d'
           >
-            {loading ? (
-              <Center w='full'>
-                <Spinner size='xl' />
-              </Center>
-            ) : (
-              <>
-                <Text fontWeight='bold' fontSize='4xl'>
-                  {exchangeInfo.fromAmount} {exchangeInfo.from}
-                </Text>
-                <ArrowForwardIcon fontSize='4xl' />
-                <Text fontWeight='bold' fontSize='4xl'>
-                  {exchangeInfo.toAmount} {exchangeInfo.to}
-                </Text>
-              </>
-            )}
+            <Text fontWeight='bold' fontSize='4xl'>
+              {exchangeInfo.fromAmount} {exchangeInfo.from}
+            </Text>
+            <ArrowForwardIcon fontSize='4xl' />
+            <Text fontWeight='bold' fontSize='4xl'>
+              {exchangeInfo.toAmount} {exchangeInfo.to}
+            </Text>
           </HStack>
         </ChakraBox>
       </ChakraBox>
