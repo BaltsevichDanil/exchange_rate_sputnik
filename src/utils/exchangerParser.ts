@@ -15,28 +15,28 @@ const exchangerParser = (data: string): IResult => {
     const parsedAmount = parseFloat(amount)
 
     if (!isFinite(parsedAmount)) {
-      throw new Error('Amount is not finite')
+      throw new Error('Число не должно содержать лишних символов')
     }
 
     if (from.toUpperCase() === to.toUpperCase()) {
-      throw new Error("From rates can't be equal to rates")
+      throw new Error('Валюты обмена не могут быть одинаковыми')
     }
 
     if (!rates.includes(from.toUpperCase())) {
-      throw new Error('From rates is incorrect')
+      throw new Error('Не найдена базовая валюта')
     }
 
     if (!rates.includes(to.toUpperCase())) {
-      throw new Error('To rates is incorrect')
+      throw new Error('Не найдена валюта для обмена')
     }
 
     return {
       amount: parsedAmount,
-      from,
-      to
+      from: from.toUpperCase(),
+      to: to.toUpperCase()
     }
   }
-  throw new Error('Parsing error')
+  throw new Error('Некоректное значение! Введите в формате: 15 rub in usd')
 }
 
 export default exchangerParser
