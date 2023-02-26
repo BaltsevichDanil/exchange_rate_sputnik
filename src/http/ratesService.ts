@@ -15,7 +15,10 @@ interface ILatestRatesResponse {
   rates: RatesData
 }
 
+// RatesService with methods that get information about rates
 export default class RatesService {
+  // exchangeRates send to api base rate and wanted rate
+  // Get exchange rates result
   static async exchangeRates(
     data: IExchangeParserResult
   ): Promise<IExchangeInfo> {
@@ -31,6 +34,8 @@ export default class RatesService {
     }
   }
 
+  // getLatestRates send to api base rate.
+  // Get the latest rates by base.
   static async getLatestRates(base: Rate): Promise<ILatestRatesResponse> {
     const response = await axios<ILatestRatesResponse>(`/latest?&base=${base}`)
     return response.data
