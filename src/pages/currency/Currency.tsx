@@ -11,6 +11,7 @@ import {
   Tr,
   Text
 } from '@chakra-ui/react'
+import {isAxiosError} from 'axios'
 import {ChangeEvent, FC, ReactNode, useEffect, useState} from 'react'
 
 import NavButton from '../../components/navButton/NavButton'
@@ -21,15 +22,28 @@ const Currency: FC = () => {
   const [selectedRate, setSelectedRate] = useState<Rate>('RUB')
   const [ratesData, setRatesData] = useState<RatesData>()
   const [errorText, setErrorText] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(true)
 
   const onSelect = (e: ChangeEvent<HTMLSelectElement>): void => {
     setSelectedRate(e.target.value as Rate)
   }
 
+  const getCurrency = async (base: Rate): Promise<void> => {
+    try {
+      setLoading(true)
+      const result = await RatesService.getLatestRates(base)
+      setRatesData(result.rates)
+    } catch (e) {
+      if (isAxiosError(e)) {
+        setErrorText(e.message)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
-    RatesService.getLatestRates(selectedRate)
-      .then(result => setRatesData(result.rates))
-      .catch(err => setErrorText(err.message))
+    getCurrency(selectedRate)
   }, [selectedRate])
 
   const showRatesData = (): ReactNode => {
@@ -54,7 +68,12 @@ const Currency: FC = () => {
   return (
     <VStack maxW='container.md' mx='auto' spacing={4} mt={10}>
       <NavButton link='/' text='Обменник' dir='prev' />
-      <Select variant='filled' defaultValue={selectedRate} onChange={onSelect}>
+      <Select
+        variant='filled'
+        defaultValue={selectedRate}
+        onChange={onSelect}
+        disabled={loading}
+      >
         {rates.map(rate => (
           <option key={rate} value={rate}>
             {rate}
