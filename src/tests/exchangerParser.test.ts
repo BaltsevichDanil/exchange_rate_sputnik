@@ -5,8 +5,8 @@ describe('Test exchanger parser', () => {
   it('Should return exchange result', () => {
     expect(exchangerParser('15 rub in usd')).toStrictEqual({
       amount: 15,
-      from: 'rub',
-      to: 'usd'
+      from: 'RUB',
+      to: 'USD'
     })
   })
 

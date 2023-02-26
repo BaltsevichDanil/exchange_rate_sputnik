@@ -3,19 +3,12 @@ import {HStack, Text} from '@chakra-ui/react'
 import {animate, motion, useMotionValue, useTransform} from 'framer-motion'
 import {FC, useEffect, useRef} from 'react'
 
-import {Rate} from '../../constants/rates'
+import {IExchangeInfo} from '../../interfaces'
 import ChakraBox from '../chackraBox/ChackraBox'
 
 interface IProps {
   isOpen: 'open' | 'closed'
   exchangeInfo: IExchangeInfo
-}
-
-export interface IExchangeInfo {
-  from: Rate
-  fromAmount: number
-  to: Rate
-  toAmount: number
 }
 
 const ExchangeResult: FC<IProps> = ({isOpen, exchangeInfo}) => {

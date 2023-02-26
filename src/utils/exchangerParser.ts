@@ -1,10 +1,5 @@
-import {Rate, rates} from '../constants/rates'
-
-export interface IExchangeParserResult {
-  amount: number
-  from: Rate
-  to: Rate
-}
+import {rates} from '../constants/rates'
+import {IExchangeParserResult, Rate} from '../interfaces'
 
 const exchangerParser = (data: string): IExchangeParserResult => {
   const regex = new RegExp(/([0-9]*[.])?[0-9]+ [a-zA-Z]{3} in [a-zA-Z]{3}/g)
