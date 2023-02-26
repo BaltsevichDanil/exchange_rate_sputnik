@@ -1,4 +1,4 @@
-# Vite React Boilerplate
+# Exchange Rate
 
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=flat&logo=vite&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)
@@ -16,6 +16,11 @@
 1. Import order
 2. No magic numbers
 3. Naming convention
+
+### ENV
+```
+VITE_EXCHANGER_RATES_API_KEY=
+```
 
 ### Install
 ```
