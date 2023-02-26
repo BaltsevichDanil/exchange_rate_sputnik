@@ -1,3 +1,4 @@
+// All rates from api
 export const rates = <const>[
   'AED',
   'AFN',
