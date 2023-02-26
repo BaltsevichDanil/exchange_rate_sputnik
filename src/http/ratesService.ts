@@ -1,15 +1,14 @@
-import {IExchangeInfo} from '../components/exchangeResult/exchangeResult'
-import {Rate, rates} from '../constants/rates'
-import {IExchangeParserResult} from '../utils/exchangerParser'
+import {
+  IExchangeInfo,
+  IExchangeParserResult,
+  Rate,
+  RatesData
+} from '../interfaces'
 
 import axios from './axios'
 
 interface IExchangeResponse {
   result: number
-}
-
-export type RatesData = {
-  [rate in (typeof rates)[number]]: number
 }
 
 interface ILatestRatesResponse {
