@@ -7,6 +7,7 @@ import {
   Input,
   Text
 } from '@chakra-ui/react'
+import {isAxiosError} from 'axios'
 import {ChangeEvent, FC, FormEvent, useState} from 'react'
 
 import ExchangeResult, {
@@ -16,7 +17,9 @@ import Form from '../../components/form/Form'
 import NavButton from '../../components/navButton/NavButton'
 import PageWrapper from '../../components/pageWrapper/PageWrapper'
 import RatesService from '../../http/ratesService'
-import exchangerParser from '../../utils/exchangerParser'
+import exchangerParser, {
+  IExchangeParserResult
+} from '../../utils/exchangerParser'
 
 const Exchanger: FC = () => {
   const [isOpen, setIsOpen] = useState<'open' | 'closed'>('closed')
@@ -30,29 +33,37 @@ const Exchanger: FC = () => {
     toAmount: 30
   })
 
+  const getExchangeRates = async (
+    data: IExchangeParserResult
+  ): Promise<void> => {
+    try {
+      setLoading(true)
+      const result = await RatesService.exchangeRates(data)
+      setExchangeInfo(result)
+      if (isOpen === 'closed') {
+        setIsOpen('open')
+      }
+    } catch (e) {
+      setIsOpen('closed')
+      if (isAxiosError(e)) {
+        setExchangeError(e.message)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     setExchangeError('')
-    setLoading(true)
     try {
       const parsedData = exchangerParser(exchangeQuery)
-      RatesService.exchangeRates(parsedData)
-        .then(result => {
-          setExchangeInfo(result)
-          if (isOpen === 'closed') {
-            setIsOpen('open')
-          }
-        })
-        .catch(err => {
-          setIsOpen('closed')
-          setExchangeError(err.message)
-        })
+      getExchangeRates(parsedData)
     } catch (err) {
       setIsOpen('closed')
       const error = err as Error
       setExchangeError(error.message)
     }
-    setLoading(false)
   }
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void =>
