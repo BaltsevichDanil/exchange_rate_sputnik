@@ -88,11 +88,11 @@ const ExchangeResult: FC<IProps> = ({isOpen, exchangeInfo}) => {
             color='white'
             transform-style='preserve-3d'
           >
-            <Text fontWeight='bold' fontSize='4xl'>
+            <Text fontWeight='bold' fontSize={['2xl', '4xl']}>
               {exchangeInfo.fromAmount} {exchangeInfo.from}
             </Text>
             <ArrowForwardIcon fontSize='4xl' />
-            <Text fontWeight='bold' fontSize='4xl'>
+            <Text fontWeight='bold' fontSize={['2xl', '4xl']}>
               {exchangeInfo.toAmount} {exchangeInfo.to}
             </Text>
           </HStack>

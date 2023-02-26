@@ -7,7 +7,7 @@ interface IProps {
 
 const PageWrapper: FC<IProps> = ({children}) => {
   return (
-    <Center h='100vh'>
+    <Center h='100vh' p={4}>
       <VStack spacing='4' w='container.sm'>
         {children}
       </VStack>
