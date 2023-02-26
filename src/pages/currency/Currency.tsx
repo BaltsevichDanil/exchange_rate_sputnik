@@ -67,7 +67,7 @@ const Currency: FC = () => {
   }
 
   return (
-    <VStack maxW='container.md' mx='auto' spacing={4} mt={10}>
+    <VStack maxW='container.md' mx='auto' spacing={4} mt={10} p={4}>
       <NavButton link='/' text='Обменник' dir='prev' />
       <Select
         variant='filled'
