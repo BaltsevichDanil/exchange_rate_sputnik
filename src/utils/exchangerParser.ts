@@ -1,9 +1,9 @@
-import rates from '../constants/rates'
+import {Rate, rates} from '../constants/rates'
 
 export interface IExchangeParserResult {
   amount: number
-  from: string
-  to: string
+  from: Rate
+  to: Rate
 }
 
 const exchangerParser = (data: string): IExchangeParserResult => {
@@ -18,22 +18,25 @@ const exchangerParser = (data: string): IExchangeParserResult => {
       throw new Error('Число не должно содержать лишних символов')
     }
 
-    if (from.toUpperCase() === to.toUpperCase()) {
+    const upperCasedFrom = from.toUpperCase() as Rate
+    const upperCasedTo = to.toUpperCase() as Rate
+
+    if (upperCasedFrom === upperCasedTo) {
       throw new Error('Валюты обмена не могут быть одинаковыми')
     }
 
-    if (!rates.includes(from.toUpperCase())) {
+    if (!rates.includes(upperCasedFrom)) {
       throw new Error('Не найдена базовая валюта')
     }
 
-    if (!rates.includes(to.toUpperCase())) {
+    if (!rates.includes(upperCasedTo)) {
       throw new Error('Не найдена валюта для обмена')
     }
 
     return {
       amount: parsedAmount,
-      from: from.toUpperCase(),
-      to: to.toUpperCase()
+      from: upperCasedFrom,
+      to: upperCasedTo
     }
   }
   throw new Error('Некоректное значение! Введите в формате: 15 rub in usd')

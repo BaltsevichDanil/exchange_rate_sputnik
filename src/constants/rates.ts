@@ -1,4 +1,4 @@
-const rates = [
+export const rates = <const>[
   'AED',
   'AFN',
   'ALL',
@@ -171,4 +171,4 @@ const rates = [
   'ZWL'
 ]
 
-export default rates
+export type Rate = (typeof rates)[number]
