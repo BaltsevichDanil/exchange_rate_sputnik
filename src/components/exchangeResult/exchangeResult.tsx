@@ -3,6 +3,7 @@ import {HStack, Text} from '@chakra-ui/react'
 import {animate, motion, useMotionValue, useTransform} from 'framer-motion'
 import {FC, useEffect, useRef} from 'react'
 
+import {Rate} from '../../constants/rates'
 import ChakraBox from '../chackraBox/ChackraBox'
 
 interface IProps {
@@ -11,9 +12,9 @@ interface IProps {
 }
 
 export interface IExchangeInfo {
-  from: string
+  from: Rate
   fromAmount: number
-  to: string
+  to: Rate
   toAmount: number
 }
 
