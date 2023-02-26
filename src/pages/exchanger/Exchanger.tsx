@@ -10,16 +10,13 @@ import {
 import {isAxiosError} from 'axios'
 import {ChangeEvent, FC, FormEvent, useState} from 'react'
 
-import ExchangeResult, {
-  IExchangeInfo
-} from '../../components/exchangeResult/exchangeResult'
+import ExchangeResult from '../../components/exchangeResult/exchangeResult'
 import Form from '../../components/form/Form'
 import NavButton from '../../components/navButton/NavButton'
 import PageWrapper from '../../components/pageWrapper/PageWrapper'
 import RatesService from '../../http/ratesService'
-import exchangerParser, {
-  IExchangeParserResult
-} from '../../utils/exchangerParser'
+import {IExchangeInfo, IExchangeParserResult} from '../../interfaces'
+import exchangerParser from '../../utils/exchangerParser'
 
 const Exchanger: FC = () => {
   const [isOpen, setIsOpen] = useState<'open' | 'closed'>('closed')

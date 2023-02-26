@@ -15,8 +15,9 @@ import {isAxiosError} from 'axios'
 import {ChangeEvent, FC, ReactNode, useEffect, useState} from 'react'
 
 import NavButton from '../../components/navButton/NavButton'
-import {Rate, rates} from '../../constants/rates'
-import RatesService, {RatesData} from '../../http/ratesService'
+import {rates} from '../../constants/rates'
+import RatesService from '../../http/ratesService'
+import {Rate, RatesData} from '../../interfaces'
 
 const Currency: FC = () => {
   const [selectedRate, setSelectedRate] = useState<Rate>('RUB')

@@ -170,5 +170,3 @@ export const rates = <const>[
   'ZMW',
   'ZWL'
 ]
-
-export type Rate = (typeof rates)[number]
